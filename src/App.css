@@ -1,0 +1,195 @@
+body{
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #272a37;
+    text-align: left;
+    background-color: #f2f3f6;
+}
+
+.home-page{
+    background-color: white;
+    margin-left: 60px;
+    margin-top: 20px;
+    width: 1470px;
+    height: 312px;
+    border-radius: 18px;
+}
+
+.car-options{
+    display: flex;
+    height: 38px;
+    padding: 16px 24px;
+}
+
+.actions-car{
+    display: flex; 
+}
+
+.buy-car{
+    color: #272a37;
+    font-weight: 900;
+}
+
+.clear-filter{
+    margin-left: 850px;
+    height: 21px;
+    text-align: center;
+    color: #Eb6a79;
+}
+
+.hr{
+    border:none;
+    border-top:1px solid  #f0f0f0;
+}
+
+.search-engine{
+    display: flex;
+    height: 242px;
+}
+
+
+.options{
+    display: flex;
+    flex-direction: column;
+    width: 230px;
+    height: 242px;
+}
+
+.options-option{
+    width: 230px;
+    height: 154px;
+    padding: 32px 0px 56px;
+}
+
+.options-car{
+    display: flex;
+    color: #fd4100;
+    height: 24px;
+    font-weight: 600;
+    padding: 12px 48px 12px 24px;
+}
+
+.car-image{
+    width: 24px;
+    height: 24px;
+    color: #fd4100;
+}
+
+.cars{
+    padding: 0px 0px 0px 16px
+}
+
+.options-spectech{
+    display: flex;
+    height: 24px;
+    text-align: center;
+    padding: 12px 48px 12px 24px;
+}
+
+.spec-image{
+    width: 24px;
+    height: 24px;
+}
+
+.spectech{
+    padding: 0px 0px 0px 16px
+}
+
+
+.options-moto{
+    display: flex;
+    text-align: center;
+    height: 24px;
+    padding: 12px 48px 12px 24px;
+}
+
+.moto-image{
+    width: 24px;
+    height: 24px;
+}
+
+.motos{
+    padding: 0px 0px 0px 16px
+}
+
+
+.selector-manufactor{
+    width: 274px;
+    height: 50px;
+    padding: 0px 16px;
+}
+.filters-container{
+    width: 1242px;
+    height: 178px;
+    padding: 32px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.first-container{
+    display: flex;
+}
+
+.customer-clearance{
+    display: flex;
+    width: 248px;
+    height: 38px;
+    border-radius: 12px;
+}
+
+.clearance{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border: 2px solid #e5e7eb;
+}
+
+.clearance:hover{
+    border: 2px solid black;
+}
+
+.duty-free:hover{
+    border: 2px solid black;
+}
+
+.clearance-selected{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border: 2px solid  green;
+    background-color: #E8F8F0;
+}
+
+.duty-free{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border: 2px solid #e5e7eb;
+}
+
+.duty-selected{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #E8F8F0;
+    border: 2px solid  green;
+}
+
+.search{
+    width: 228px;
+    height: 48px;
+    background-color: #fd4100;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 572px;
+}
