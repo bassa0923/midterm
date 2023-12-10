@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 import { YearRangePicker } from "react-year-range-picker";
 
 function Years(props) {
-  console.log(props.startYear);
   return (
     <div>
       <YearRangePicker

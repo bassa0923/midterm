@@ -1,21 +1,5 @@
+/* eslint-disable react/prop-types */
 import Select from "react-select";
-
-const styles = {
-  valueContainer: (css) => ({
-    ...css,
-    flexWrap: "nowrap",
-  }),
-  multiValueRemove: () => {
-    return {
-      display: "none",
-    };
-  },
-  multiValue: () => {
-    return {
-      backgroundColor: "white",
-    };
-  },
-};
 
 function Fuel(props) {
   return (
@@ -24,7 +8,7 @@ function Fuel(props) {
         closeMenuOnSelect={false}
         hideSelectedOptions={false}
         isClearable={true}
-        styles={styles}
+        styles={props.styles}
         className="selector-manufactor"
         options={props.fuel}
         onChange={props.fuelChange}

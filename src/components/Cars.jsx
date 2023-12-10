@@ -1,22 +1,5 @@
+/* eslint-disable react/prop-types */
 import Select from "react-select";
-
-const styles = {
-  valueContainer: (css) => ({
-    ...css,
-    flexWrap: "nowrap",
-    role: "menuitemcheckbox",
-  }),
-  multiValueRemove: () => {
-    return {
-      display: "none",
-    };
-  },
-  multiValue: () => {
-    return {
-      backgroundColor: "white",
-    };
-  },
-};
 
 function Cars(props) {
   return (
@@ -24,7 +7,7 @@ function Cars(props) {
       <Select
         isClearable={true}
         className="selector-manufactor"
-        styles={styles}
+        styles={props.styles}
         options={props.cars}
         onChange={props.handleChange}
         value={props.selectedCarOptions}

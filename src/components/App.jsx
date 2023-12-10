@@ -1,22 +1,16 @@
-import "./App.css";
+import "../App.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Route, Routes, Link } from "react-router-dom";
 import Cars from "./cars";
-import car from "./assets/images/car.png";
-import moto from "./assets/images/moto.png";
-import spec from "./assets/images/spec.png";
-import trash from "./assets/images/trash.png";
-import Location from "./location";
-import Fuel from "./fuel";
+import car from "../assets/images/car.png";
+import moto from "../assets/images/moto.png";
+import spec from "../assets/images/spec.png";
+import Location from "./Location";
+import Fuel from "./Fuel";
 import Years from "./year";
 
 import Info from "./Info";
-
-// https://api2.myauto.ge/ka/products/count?TypeID=0&ForRent=0&Mans=41-473&CurrencyID=3&MileageType=1&Customs=1&Page=1&undefined=1
-// https://api2.myauto.ge/ka/products/count?TypeID=0&ForRent=0&Mans=&CurrencyID=3&MileageType=1&Page=1&undefined=1
-
-//https://api2.myauto.ge/ka/products/count?TypeID=0&ForRent=0&Mans=41.1077&CurrencyID=3&MileageType=1&Page=1&undefined=1
 
 function App() {
   // CAR INFO
@@ -56,34 +50,34 @@ function App() {
     { value: 7, label: "ელექტრო" },
   ];
 
+  const fetchData = async () => {
+    try {
+      // Get all cars data
+      const response = await fetch(
+        "https://api2.myauto.ge/ka/services/quick-main-data/all/get"
+      );
+      const dataJson = await response.json();
+
+      // Converting JSON to Array
+      const carInfo = JSON.parse(dataJson.data.manufactors);
+      // Creating Array and pushing carnames
+      let cars = [];
+      carInfo.map((car) => {
+        cars.push({ value: car.man_id, label: car.man_name });
+      });
+      setCars(cars);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Get all cars data
-        const response = await fetch(
-          "https://api2.myauto.ge/ka/services/quick-main-data/all/get"
-        );
-        const dataJson = await response.json();
-
-        // Converting JSON to Array
-        const carInfo = JSON.parse(dataJson.data.manufactors);
-        // Creating Array and pushing carnames
-        let cars = [];
-        carInfo.map((car) => {
-          cars.push({ value: car.man_id, label: car.man_name });
-        });
-        setCars(cars);
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
-
     // Calling fetchData to get API
     fetchData();
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCount = async () => {
       try {
         // Get Amount of cars
         const response = await fetch(
@@ -96,8 +90,8 @@ function App() {
       }
     };
 
-    // Calling fetchData to get API
-    fetchData();
+    // Calling fetchCount to get API
+    fetchCount();
   }, [carId, locationId, fuelId, clearance, startYear, endYear]);
 
   const handleChange = (selectedOptions) => {
@@ -148,66 +142,84 @@ function App() {
     setFuelId(fuelId.join("."));
   };
 
-  const getCars = () => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `https://api2.myauto.ge/ka/products?TypeID=0&ForRent=0&Mans=${carId}&ProdYearFrom=${startYear}&ProdYearTo=${endYear}&PriceFrom=&PriceTo=&CurrencyID=3&MileageType=1&FuelTypes=${fuelId}&Locs=${locationId}&Customs=${clearance}&Page=1&undefined=1`
-      );
-      const dataJson = await response.json();
-
-      let carNames = [];
-      let prodYear = [];
-      let carRunKm = [];
-      let carEngineVolume = [];
-      let gearType = [];
-      let fuelTypeId = [];
-      let rightWheel = [];
-      let priceValue = [];
-      let fetchedLocation = [];
-      let customsPassed = [];
-      let orderDate = [];
-      let views = [];
-      let photos = [];
-      let carIdPhoto = [];
-      dataJson.data.items.map((data) => {
-        carRunKm.push(data.car_run);
-        carEngineVolume.push(data.engine_volume);
-        gearType.push(data.gear_type_id);
-        prodYear.push(data.prod_year);
-        fuelTypeId.push(data.fuel_type_id);
-        rightWheel.push(data.right_wheel);
-        priceValue.push(data.price_value);
-        fetchedLocation.push(data.location_id);
-        customsPassed.push(data.customs_passed);
-        orderDate.push(data.order_date);
-        views.push(data.views);
-        photos.push(data.photo);
-        carIdPhoto.push(data.car_id);
-        cars.map((car) => {
-          if (car.value == data.man_id) {
-            carNames.push(car.label);
-          }
-        });
-
-        setCarName(carNames);
-        setProdYear(prodYear);
-        setCarRunKm(carRunKm);
-        setCarEngineVolume(carEngineVolume);
-        setGearType(gearType);
-        setFuelTypeId(fuelTypeId);
-        setRightWheel(rightWheel);
-        setPriceValue(priceValue);
-        setFetchedLocation(fetchedLocation);
-        setCustomsPassed(customsPassed);
-        setOrderDate(orderDate);
-        setViews(views);
-        setPhotos(photos);
-        setCarIdPhoto(carIdPhoto);
-      });
-    };
-
-    fetchData();
+  const styles = {
+    valueContainer: (css) => ({
+      ...css,
+      flexWrap: "nowrap",
+      role: "menuitemcheckbox",
+    }),
+    multiValueRemove: () => {
+      return {
+        display: "none",
+      };
+    },
+    multiValue: () => {
+      return {
+        backgroundColor: "white",
+      };
+    },
   };
+
+  const fetchCars = async (page) => {
+    const response = await fetch(
+      `https://api2.myauto.ge/ka/products?TypeID=0&ForRent=0&Mans=${carId}&ProdYearFrom=${startYear}&ProdYearTo=${endYear}&PriceFrom=&PriceTo=&CurrencyID=3&MileageType=1&FuelTypes=${fuelId}&Locs=${locationId}&Customs=${clearance}&Page=${
+        page ? page : 1
+      }&undefined=1`
+    );
+    const dataJson = await response.json();
+
+    let carNames = [];
+    let prodYear = [];
+    let carRunKm = [];
+    let carEngineVolume = [];
+    let gearType = [];
+    let fuelTypeId = [];
+    let rightWheel = [];
+    let priceValue = [];
+    let fetchedLocation = [];
+    let customsPassed = [];
+    let orderDate = [];
+    let views = [];
+    let photos = [];
+    let carIdPhoto = [];
+    dataJson.data.items.map((data) => {
+      carRunKm.push(data.car_run);
+      carEngineVolume.push(data.engine_volume);
+      gearType.push(data.gear_type_id);
+      prodYear.push(data.prod_year);
+      fuelTypeId.push(data.fuel_type_id);
+      rightWheel.push(data.right_wheel);
+      priceValue.push(data.price_value);
+      fetchedLocation.push(data.location_id);
+      customsPassed.push(data.customs_passed);
+      orderDate.push(data.order_date);
+      views.push(data.views);
+      photos.push(data.photo);
+      carIdPhoto.push(data.car_id);
+      cars.map((car) => {
+        if (car.value == data.man_id) {
+          carNames.push(car.label);
+        }
+      });
+
+      setCarName(carNames);
+      setProdYear(prodYear);
+      setCarRunKm(carRunKm);
+      setCarEngineVolume(carEngineVolume);
+      setGearType(gearType);
+      setFuelTypeId(fuelTypeId);
+      setRightWheel(rightWheel);
+      setPriceValue(priceValue);
+      setFetchedLocation(fetchedLocation);
+      setCustomsPassed(customsPassed);
+      setOrderDate(orderDate);
+      setViews(views);
+      setPhotos(photos);
+      setCarIdPhoto(carIdPhoto);
+    });
+  };
+
+  fetchCars();
 
   return (
     <Routes>
@@ -246,11 +258,13 @@ function App() {
                     cars={cars}
                     handleChange={handleChange}
                     selectedCarOptions={selectedCarOptions}
+                    styles={styles}
                   />
                   <Location
                     locationChange={locationChange}
                     location={location}
                     locationId={locationId}
+                    styles={styles}
                   />
                   <div className="customer-clearance">
                     <div
@@ -279,10 +293,10 @@ function App() {
                     endYear={endYear}
                     yearChange={yearChange}
                   />
-                  <Fuel fuelChange={fuelChange} fuel={fuel} />
+                  <Fuel fuelChange={fuelChange} fuel={fuel} styles={styles} />
                 </div>
                 <Link to="/info" className="link">
-                  <button className="search" onClick={getCars}>
+                  <button className="search" onClick={fetchCars}>
                     ძებნა ({carAmount})
                   </button>
                 </Link>
@@ -309,6 +323,8 @@ function App() {
             views={views}
             photos={photos}
             carIdPhoto={carIdPhoto}
+            carAmount={carAmount}
+            fetchCars={fetchCars}
           />
         }
       />
