@@ -8,7 +8,7 @@ import moto from "../assets/images/moto.png";
 import spec from "../assets/images/spec.png";
 import Location from "./Location";
 import Fuel from "./Fuel";
-import Years from "./year";
+import Year from "./year";
 
 import Info from "./Info";
 
@@ -288,7 +288,7 @@ function App() {
                   </div>
                 </div>
                 <div className="second-container">
-                  <Years
+                  <Year
                     startYear={startYear}
                     endYear={endYear}
                     yearChange={yearChange}
